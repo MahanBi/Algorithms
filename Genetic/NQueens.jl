@@ -1,12 +1,22 @@
-N::Int8 = 0;
-const InitMake::Int16, MutRate::Float16 = 200 , 0.8;
+using Random
 
-function makelists(initsize::Int, N::Int8)::Array
+struct NQueenData
+    InitMake::Int16
+    N::Int8
+    #board::Array{Int8}
+    NQueenData(InitMake, N) = new(InitMake, N)
+end;
+
+function makelists(DATAS::NQueenData)::Array
     all_board::Array = []
-    for i = 1:N
+    for i = 1:DATAS.InitMake
         one_board::Array = []
-        
+        for o = 1:DATAS.N
+            append!(one_board, rand(1:DATAS.N));
+        end
+        append!(all_board, [one_board])
     end
+    return all_board
 end
 
 function crossover()::Array
@@ -21,4 +31,6 @@ function fitness()::Array
     
 end
 
+mydt = NQueenData(200, 4)
+list = makelists(mydt)
 
