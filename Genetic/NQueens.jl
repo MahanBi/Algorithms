@@ -1,17 +1,8 @@
-using Random
-
-struct NQueenData
-    InitMake::Int16
-    N::Int8
-    try_num::Int8
-    NQueenData(InitMake, N, try_num) = new(InitMake, N, try_num)
-end;
-
 function makelists(N, InitMake)::Array
     all_board::Array = []
-    for i = 1:InitMake
+    for _ = 1:InitMake
         one_board::Array = []
-        for o = 1:N
+        for __ = 1:N
             append!(one_board, rand(1:N))
         end
         append!(one_board, 0)
@@ -30,18 +21,26 @@ function crossover(list::Array)::Array
     return list
 end
 
-function mutation()::Array
-    
+function mutation(list::Array, rate, N)::Array
+    len = length(list)
+    unique_list::Array = [len ÷ 2:len-1;]
+    println(unique_list)
+    for i = range(len ÷ 2)
+        
+    end
+    return list
 end
 
 function fitness()::Array
     
 end
 
-function main()
-    mydt = NQueenData(200, 4, 100)
+function main()::Nothing
     list = makelists(4, 200)
     list = crossover(list)
+    list = mutation(list, 0.8, 4)
+    print(length(list))
+    return nothing
 end
 main()
 
