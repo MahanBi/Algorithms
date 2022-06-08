@@ -32,13 +32,35 @@ end
     for b = unique_list
         new_field_num = rand(1:N)
         new_value = rand(1:N)
-        @show list[b][new_field_num] = new_value
+        list[b][new_field_num] = new_value
     end
     return list
 end
 
-@time function fitness()::Array
-    
+@time function fitness(list::Array, N::Int)::Array
+    i = 1
+    len = length(list)
+    conflict = 0
+    while i < len
+        j = 1
+        conflict = 0
+        while j < N
+            l = j+1
+            while l < N
+                if list[i][j] == list[i][l]
+                    conflict += 1
+                end
+                if abs(j-l) == abs(list[i][j] - list[i][l])
+                    conflict += 1
+                end
+                l+=1
+            end
+            j += 1
+        end
+        list[i][length(list[j])] =  conflict
+        i += 1 
+    end
+    return list
 end
 
 @time function main()::Nothing
@@ -46,7 +68,8 @@ end
     list = crossover(list)
 
     list = mutation(list, 0.8, 4)
-    # print(length(list))
+    list = fitness(list, 4)
+    println(list)
     return nothing
 end
 main()
