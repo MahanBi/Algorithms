@@ -1,7 +1,7 @@
-function makelists(N, InitMake)::Array
-    all_board::Array = []
+@time function makelists(N, InitMake)::Array
+    all_board::Array{Array{Int8}} = []
     for _ = 1:InitMake
-        one_board::Array = []
+        one_board::Array{Int8} = []
         for __ = 1:N
             append!(one_board, rand(1:N))
         end
@@ -11,7 +11,7 @@ function makelists(N, InitMake)::Array
     return all_board
 end
 
-function crossover(list::Array)::Array
+@time function crossover(list::Array)::Array
     len = length(list)
     N = length(list[1])
     for i = 1:2:len
@@ -21,25 +21,32 @@ function crossover(list::Array)::Array
     return list
 end
 
-function mutation(list::Array, rate, N)::Array
+@time function mutation(list::Array, rate, N::Int)::Array
     len = length(list)
     unique_list::Array = [len ÷ 2:len-1;]
-    println(unique_list)
-    for i = range(len ÷ 2)
-        
+    for i = 1:(len ÷ 2)
+        new_random = rand(1:len ÷ 2)
+        unique_list[new_random], unique_list[i] = unique_list[i], unique_list[new_random]
+    end
+    unique_list = unique_list[1:Int(length(unique_list) * rate)]
+    for b = unique_list
+        new_field_num = rand(1:N)
+        new_value = rand(1:N)
+        @show list[b][new_field_num] = new_value
     end
     return list
 end
 
-function fitness()::Array
+@time function fitness()::Array
     
 end
 
-function main()::Nothing
+@time function main()::Nothing
     list = makelists(4, 200)
     list = crossover(list)
+
     list = mutation(list, 0.8, 4)
-    print(length(list))
+    # print(length(list))
     return nothing
 end
 main()
