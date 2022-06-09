@@ -1,4 +1,4 @@
-@time function makelists(N, InitMake)::Array
+function makelists(N::Int, InitMake::Int)::Array
     all_board::Array{Array{Int8}} = []
     for _ = 1:InitMake
         one_board::Array{Int8} = []
@@ -11,7 +11,7 @@
     return all_board
 end
 
-@time function crossover(list::Array)::Array
+function crossover(list::Array)::Array
     len = length(list)
     N = length(list[1])
     for i = 1:2:len
@@ -21,7 +21,7 @@ end
     return list
 end
 
-@time function mutation(list::Array, rate, N::Int)::Array
+function mutation(list::Array, rate, N::Int)::Array
     len = length(list)
     unique_list::Array = [len ÷ 2:len-1;]
     for i = 1:(len ÷ 2)
@@ -37,39 +37,55 @@ end
     return list
 end
 
-@time function fitness(list::Array, N::Int)::Array
-    i = 1
+function fitness(list::Array, N::Int)::Array
     len = length(list)
-    conflict = 0
-    while i < len
-        j = 1
+    for i = 1:len # board
         conflict = 0
-        while j < N
-            l = j+1
-            while l < N
-                if list[i][j] == list[i][l]
-                    conflict += 1
-                end
-                if abs(j-l) == abs(list[i][j] - list[i][l])
-                    conflict += 1
-                end
-                l+=1
+        for j = 1:length(list[i])-1
+            for m = 2:length(list[i])-1
+                println("$(list[i][j]) = $j  $(list[i][m]) = $m")
             end
-            j += 1
         end
-        list[i][length(list[j])] =  conflict
-        i += 1 
+        break
     end
+
+    # while i < len
+    #     j = 1
+    #     conflict = 0
+    #     while j < N
+    #         l = j+1
+    #         while l < N
+    #             if list[i][j] == list[i][l]
+    #                 conflict += 1
+    #             end
+    #             if abs(j-l) == abs(list[i][j] - list[i][l])
+    #                 conflict += 1
+    #             end
+    #             l+=1
+    #         end
+    #         j += 1
+    #     end
+    #     list[i][length(list[j])] =  conflict
+    #     i += 1 
+    # end
     return list
 end
 
 @time function main()::Nothing
-    list = makelists(4, 200)
-    list = crossover(list)
+    # print("N: ")
+    # N = parse(Int, readline())
+    # print("initial pupolation: ")
+    # InitMake = parse(Int, readline())
+    # print("Eleminate rate: ")
+    # rate = parse(Float16, readline())
+    # println("$N, $InitMake, $rate")
 
+    list = makelists(4, 10)
+    println(" --- $list")
+    list = crossover(list)
     list = mutation(list, 0.8, 4)
     list = fitness(list, 4)
-    println(list)
+
     return nothing
 end
 main()
