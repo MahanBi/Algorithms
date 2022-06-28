@@ -1,23 +1,18 @@
 # Julia Algorithms
 
-
 ## Folders
-    
 
-<!-- > Graph
->> 1
->> 2 -->
-
-
-> Search
+> **Search**:
+>>
 >> - [Binary Search](https://github.com/MahanBi/Algorithms/tree/master/Binary-Search)
->> - [Linear Search]()
+>> - [Linear Search](https://github.com/MahanBi/Algorithms/tree/master/Linear-Search)
 >> - [Genetic](https://github.com/MahanBi/Algorithms/tree/master/Genetic)
 
-
-> Sort
+> **Sort**:
+>>
 >> - [Insertion](https://github.com/MahanBi/Algorithms/tree/master/Insertion-Sort)
->> - [Merge Sort]()
+>> - [Merge Sort](https://github.com/MahanBi/Algorithms/tree/master/Merge/Merge-Sort)
 
-> Recursive
->> - [Merge]()
+> **Recursive**:
+>>
+>> - [Merge](https://github.com/MahanBi/Algorithms/tree/master/Merge)
